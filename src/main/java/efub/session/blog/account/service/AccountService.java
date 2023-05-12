@@ -1,26 +1,27 @@
-package efub.session.blog.account.service;
+package efub.session.blog.domain.account.service;
 
-import efub.session.blog.account.domain.Account;
-import efub.session.blog.account.dto.AccountUpdateRequestDto;
-import efub.session.blog.account.dto.SignUpRequestDto;
-import efub.session.blog.account.repository.AccountRepository;
+import efub.session.blog.domain.account.domain.Account;
+import efub.session.blog.domain.account.dto.request.AccountUpdateRequestDto;
+import efub.session.blog.domain.account.dto.request.SignUpRequestDto;
+import efub.session.blog.domain.account.repository.AccountRepository;
+import efub.session.blog.domain.post.domain.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class AccountService {
-    public final AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     public Long signUp(SignUpRequestDto requestDto) {
         if (existsByEmail(requestDto.getEmail())) {
-            throw new IllegalArgumentException("이미 존재하는 email입니다."+requestDto.getEmail());
+            throw new IllegalArgumentException("이미 존재하는 email입니다." + requestDto.getEmail());
         }
-
         Account account = accountRepository.save(requestDto.toEntity());
         return account.getAccountId();
     }
@@ -33,7 +34,7 @@ public class AccountService {
     @Transactional(readOnly = true)
     public Account findAccountById(Long id) {
         return accountRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("해당 id를 가진 엔티티를 찾을 수 없습니다. id = "+id));
+                .orElseThrow(() -> new EntityNotFoundException(("해당 ID를 가진 Account를 찾을 수 없습니다. ID=" + id)));
     }
 
     public Long update(Long accountId, AccountUpdateRequestDto requestDto) {
@@ -42,6 +43,7 @@ public class AccountService {
         return account.getAccountId();
     }
 
+    @Transactional
     public void withdraw(Long accountId) {
         Account account = findAccountById(accountId);
         account.withdrawAccount();
@@ -51,4 +53,6 @@ public class AccountService {
         Account account = findAccountById(accountId);
         accountRepository.delete(account);
     }
+
+
 }

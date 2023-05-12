@@ -1,11 +1,11 @@
-package efub.session.blog.post.service;
+package efub.session.blog.domain.post.service;
 
-import efub.session.blog.account.domain.Account;
-import efub.session.blog.account.repository.AccountRepository;
-import efub.session.blog.post.domain.Post;
-import efub.session.blog.post.dto.PostModifyRequestDto;
-import efub.session.blog.post.dto.PostRequestDto;
-import efub.session.blog.post.repository.PostRepository;
+import efub.session.blog.domain.account.domain.Account;
+import efub.session.blog.domain.account.service.AccountService;
+import efub.session.blog.domain.post.domain.Post;
+import efub.session.blog.domain.post.dto.request.PostModifyRequestDto;
+import efub.session.blog.domain.post.dto.request.PostRequestDto;
+import efub.session.blog.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,20 +13,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class PostService {
-    private final PostRepository postRepository;
-    private final AccountRepository accountRepository;
 
-    @Transactional
-    public Post addPost(PostRequestDto postRequestDto) {
-        Account writer = accountRepository.findById(postRequestDto.getAccountId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정"));
+    private final PostRepository postRepository;
+    private final AccountService accountService;
+
+    public Post addPost(PostRequestDto requestDto) {
+        Account writer = accountService.findAccountById(requestDto.getAccountId());
+
         return postRepository.save(
                 Post.builder()
-                        .title(postRequestDto.getTitle())
-                        .content(postRequestDto.getContent())
+                        .title(requestDto.getTitle())
+                        .content(requestDto.getContent())
                         .writer(writer)
                         .build()
         );
@@ -40,22 +40,25 @@ public class PostService {
     @Transactional(readOnly = true)
     public Post findPost(Long postId) {
         return postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("no post exists"));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
     }
 
-    @Transactional
     public void removePost(Long postId, Long accountId) {
         Post post = postRepository.findByPostIdAndWriter_AccountId(postId, accountId)
-                .orElseThrow(() -> new IllegalArgumentException("no post exists"));
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
         postRepository.delete(post);
     }
 
-    @Transactional
     public Post modifyPost(Long postId, PostModifyRequestDto requestDto) {
         Post post = postRepository.findByPostIdAndWriter_AccountId(postId, requestDto.getAccountId())
-                .orElseThrow(() -> new IllegalArgumentException("no post exists"));
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
         post.updatePost(requestDto);
-
         return post;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> findPostListByWriter(Long accountId) {
+        Account writer = accountService.findAccountById(accountId);
+        return postRepository.findAllByWriter(writer);
     }
 }

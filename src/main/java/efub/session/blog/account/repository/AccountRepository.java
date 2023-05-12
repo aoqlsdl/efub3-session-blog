@@ -1,6 +1,6 @@
-package efub.session.blog.account.repository;
+package efub.session.blog.domain.account.repository;
 
-import efub.session.blog.account.domain.Account;
+import efub.session.blog.domain.account.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
