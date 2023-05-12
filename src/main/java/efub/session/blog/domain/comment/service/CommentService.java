@@ -34,6 +34,7 @@ public class CommentService {
         return commentRepository.save(requestDto.toEntity(post, writer)).getCommentId();
     }
 
+
     // 댓글 조회 - ID별
     @Transactional(readOnly = true)
     public Comment findCommentById(Long commentId) {
@@ -53,5 +54,18 @@ public class CommentService {
         Post post = postService.findPost(postId);
         return commentRepository.findAllByPost(post);
     }
+
+    // 댓글 수정
+    public void updateComment(CommentRequestDto requestDto, Long commentId) {
+        Comment comment = findCommentById(commentId);
+        comment.updateComment(requestDto.getContent());
+    }
+
+    // 댓글 삭제
+    public void deleteComment(Long commentId) {
+        Comment comment = findCommentById(commentId);
+        commentRepository.delete(comment);
+    }
+
 
 }

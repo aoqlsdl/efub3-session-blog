@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor    // 생성자를 통한 의존관계 주입
-@RequestMapping("/posts/{postId}/comments")
+@RequestMapping("/comments/{commentId}")
 public class CommentController {
 
     private final CommentService commentService;    // 의존관계: CommentController -> CommentService
@@ -37,6 +37,20 @@ public class CommentController {
     }
 
     // 댓글 수정
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public CommentResponseDto updatePostComment(@PathVariable final Long commentId, @RequestBody @Valid final CommentRequestDto requestDto) {
+        commentService.updateComment(requestDto, commentId);
+        Comment comment = commentService.findCommentById(commentId);
+        return CommentResponseDto.of(comment);
+    }
 
     // 댓글 삭제
+    // 반환할 데이터가 없으므로 삭제되었다는 메시지 반환
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteComment(@PathVariable final Long commentId) {
+        commentService.deleteComment(commentId);
+        return "성공적으로 삭제되었습니다.";
+    }
 }
