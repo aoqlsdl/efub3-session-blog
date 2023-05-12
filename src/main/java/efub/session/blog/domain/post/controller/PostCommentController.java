@@ -6,7 +6,6 @@ import efub.session.blog.domain.comment.dto.CommentResponseDto;
 import efub.session.blog.domain.comment.service.CommentService;
 import efub.session.blog.domain.post.dto.response.PostCommentsResponseDto;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

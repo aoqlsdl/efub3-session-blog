@@ -1,4 +1,4 @@
-package efub.session.blog.post.dto;
+package efub.session.blog.domain.post.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;

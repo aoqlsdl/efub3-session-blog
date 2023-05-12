@@ -4,7 +4,6 @@ import efub.session.blog.domain.account.domain.Account;
 import efub.session.blog.domain.account.dto.response.AccountCommentsResponseDto;
 import efub.session.blog.domain.account.service.AccountService;
 import efub.session.blog.domain.comment.domain.Comment;
-import efub.session.blog.domain.comment.dto.CommentResponseDto;
 import efub.session.blog.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

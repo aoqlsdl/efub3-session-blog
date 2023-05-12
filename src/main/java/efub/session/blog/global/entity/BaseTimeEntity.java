@@ -1,4 +1,4 @@
-package global.entity;
+package efub.session.blog.global.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;

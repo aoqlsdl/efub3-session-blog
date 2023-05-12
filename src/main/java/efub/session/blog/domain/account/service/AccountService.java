@@ -4,13 +4,11 @@ import efub.session.blog.domain.account.domain.Account;
 import efub.session.blog.domain.account.dto.request.AccountUpdateRequestDto;
 import efub.session.blog.domain.account.dto.request.SignUpRequestDto;
 import efub.session.blog.domain.account.repository.AccountRepository;
-import efub.session.blog.domain.post.domain.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 @Service
 @Transactional

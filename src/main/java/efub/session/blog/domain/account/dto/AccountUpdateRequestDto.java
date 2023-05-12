@@ -1,4 +1,4 @@
-package efub.session.blog.account.dto;
+package efub.session.blog.domain.account.dto;
 
 import lombok.Builder;
 import lombok.Getter;

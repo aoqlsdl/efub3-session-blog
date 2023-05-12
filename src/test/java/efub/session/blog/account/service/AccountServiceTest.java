@@ -1,10 +1,10 @@
 package efub.session.blog.account.service;
 
-import efub.session.blog.account.domain.Account;
-import efub.session.blog.account.dto.AccountResponseDto;
-import efub.session.blog.account.dto.AccountUpdateRequestDto;
-import efub.session.blog.account.dto.SignUpRequestDto;
-import efub.session.blog.account.repository.AccountRepository;
+import efub.session.blog.domain.account.domain.Account;
+import efub.session.blog.domain.account.dto.request.AccountUpdateRequestDto;
+import efub.session.blog.domain.account.dto.request.SignUpRequestDto;
+import efub.session.blog.domain.account.repository.AccountRepository;
+import efub.session.blog.domain.account.service.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
