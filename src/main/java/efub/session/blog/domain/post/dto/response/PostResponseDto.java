@@ -17,6 +17,8 @@ public class PostResponseDto {
     private String content;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
+    private Integer heartCount;
+    private boolean isHeart;
 
     public PostResponseDto(Long postId, String writerName, String title, String content, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.postId = postId;
@@ -35,5 +37,11 @@ public class PostResponseDto {
                 post.getContent(),
                 post.getCreatedDate(),
                 post.getModifiedDate());
+    }
+
+    // 좋아요 추가
+    public void uploadHeart(Integer heartCount, boolean isHeart) {
+        this.heartCount = heartCount;
+        this.isHeart = isHeart;
     }
 }

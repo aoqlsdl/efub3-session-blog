@@ -3,7 +3,9 @@ package efub.session.blog.domain.comment.controller;
 import efub.session.blog.domain.comment.domain.Comment;
 import efub.session.blog.domain.comment.dto.CommentRequestDto;
 import efub.session.blog.domain.comment.dto.CommentResponseDto;
+import efub.session.blog.domain.comment.service.CommentHeartService;
 import efub.session.blog.domain.comment.service.CommentService;
+import efub.session.blog.domain.heart.dto.HeartRequestDto;
 import efub.session.blog.domain.post.dto.response.PostCommentsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;    // 의존관계: CommentController -> CommentService
+    private final CommentHeartService commentHeartService; // 의존관계: CommentController -> CommentHeartService
 
     // 특정 게시글의 댓글 목록 조회
     @GetMapping
@@ -53,4 +56,19 @@ public class CommentController {
         commentService.deleteComment(commentId);
         return "성공적으로 삭제되었습니다.";
     }
+
+    // 댓글 좋아요
+//    @PostMapping("/hearts")
+//    @ResponseStatus(value = HttpStatus.CREATED)
+//    public String createCommentHeart(@PathVariable final Long commentId, @RequestBody final HeartRequestDto requestDto) {
+//        commentHeartService.create(commentId, requestDto.getAccountId());
+//        return "좋아요를 눌렀습니다.";
+//    }
+
+//    @DeleteMapping("/hearts")
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public String deleteCommentHeart(@PathVariable final Long commentId, @RequestParam final Long accountId) {
+//        commentHeartService.delete(commentId, accountId);
+//        return "좋아요가 취소되었습니다.";
+//    }
 }
