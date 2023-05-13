@@ -69,14 +69,14 @@ public class PostController {
         return PostResponseDto.from(post);
     }
 
-    @PostMapping("/{postId}/hearts")
+    @PostMapping("/{commentId}/hearts")
     @ResponseStatus(value = HttpStatus.CREATED)
     public String createPostHeart(@PathVariable final Long postId, @RequestBody final HeartRequestDto requestDto) {
         postHeartService.create(postId, requestDto.getAccountId());
         return "좋아요를 눌렀습니다.";
     }
 
-    @DeleteMapping("/{postId}/hearts")
+    @DeleteMapping("/{commentId}/hearts")
     @ResponseStatus(value = HttpStatus.OK)
     public String deletePostHeart(@PathVariable final Long postId, @RequestParam final Long accountId) {
         postHeartService.delete(postId, accountId);

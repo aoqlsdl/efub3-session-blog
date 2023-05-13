@@ -1,5 +1,6 @@
 package efub.session.blog.domain.comment.controller;
 
+import efub.session.blog.domain.account.dto.request.AccountInfoRequestDto;
 import efub.session.blog.domain.comment.domain.Comment;
 import efub.session.blog.domain.comment.dto.CommentRequestDto;
 import efub.session.blog.domain.comment.dto.CommentResponseDto;
@@ -58,17 +59,17 @@ public class CommentController {
     }
 
     // 댓글 좋아요
-//    @PostMapping("/hearts")
-//    @ResponseStatus(value = HttpStatus.CREATED)
-//    public String createCommentHeart(@PathVariable final Long commentId, @RequestBody final HeartRequestDto requestDto) {
-//        commentHeartService.create(commentId, requestDto.getAccountId());
-//        return "좋아요를 눌렀습니다.";
-//    }
+    @PostMapping("/hearts")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public String createCommentHeart(@PathVariable final Long commentId, @RequestBody final AccountInfoRequestDto requestDto) {
+        commentHeartService.create(commentId, requestDto);
+        return "좋아요를 눌렀습니다.";
+    }
 
-//    @DeleteMapping("/hearts")
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public String deleteCommentHeart(@PathVariable final Long commentId, @RequestParam final Long accountId) {
-//        commentHeartService.delete(commentId, accountId);
-//        return "좋아요가 취소되었습니다.";
-//    }
+    @DeleteMapping("/hearts")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String deleteCommentHeart(@PathVariable final Long commentId, @RequestParam final Long accountId) {
+        commentHeartService.delete(commentId, accountId);
+        return "좋아요가 취소되었습니다.";
+    }
 }
