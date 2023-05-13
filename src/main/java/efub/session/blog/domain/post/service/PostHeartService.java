@@ -69,7 +69,7 @@ public class PostHeartService {
     }
 
     @Transactional(readOnly = true)
-    public PostHeart findById(Long postHeartId) {
+    public PostHeart findByHeartId(Long postHeartId) {
         return postHeartRepository.findById(postHeartId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다. id=" + postHeartId));
     }
