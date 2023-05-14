@@ -50,38 +50,13 @@ public class CommentHeartService {
         commentHeartRepository.delete(commentHeart);
     }
 
-    public boolean isHeart(Long accountId, Comment comment){
-        Account account = accountService.findAccountById(accountId);
-        return isExistsByWriterAndComment(account, comment);
-    }
-    @Transactional(readOnly = true)
-    public CommentHeart findById(Long commentHeartId) {
-        return commentHeartRepository.findById(commentHeartId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다. id=" + commentHeartId));
-    }
-
     @Transactional(readOnly = true)
     public boolean isExistsByWriterAndComment(Account account, Comment comment) {
         return commentHeartRepository.existsByWriterAndComment(account, comment);
     }
-
-
-
     @Transactional(readOnly = true)
     public Integer countCommentHeart(Comment comment) {
         Integer count = commentHeartRepository.countByComment(comment);
         return count;
-    }
-
-    @Transactional(readOnly = true)
-    public List<CommentHeart> findByWriter(Account account) {
-        return commentHeartRepository.findByWriter(account);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Post> findLikePostList(List<PostHeart> postLikeList) {
-        return postLikeList.stream()
-                .map(PostHeart::getPost)
-                .collect(Collectors.toList());
     }
 }

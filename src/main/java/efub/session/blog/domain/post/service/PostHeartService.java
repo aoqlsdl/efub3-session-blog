@@ -63,21 +63,4 @@ public class PostHeartService {
         return count;
     }
 
-    @Transactional(readOnly = true)
-    public List<PostHeart> findByWriter(Account account) {
-        return postHeartRepository.findByWriter(account);
-    }
-
-    @Transactional(readOnly = true)
-    public PostHeart findByHeartId(Long postHeartId) {
-        return postHeartRepository.findById(postHeartId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 좋아요가 없습니다. id=" + postHeartId));
-    }
-    @Transactional(readOnly = true)
-    public List<Post> findLikePostList(List<PostHeart> postLikeList) {
-        return postLikeList.stream()
-                .map(PostHeart::getPost)
-                .collect(Collectors.toList());
-    }
-
 }
